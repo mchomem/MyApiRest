@@ -4,9 +4,15 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="WeatherForecast.Api/WeatherForecast.Api.csproj" />
-  <Project Path="WeatherForecast.Core.Application/WeatherForecast.Core.Application.csproj" />
-  <Project Path="WeatherForecast.Core.Domain/WeatherForecast.Core.Domain.csproj" />
-  <Project Path="WeatherForecast.Infrastructure.ExternalService/WeatherForecast.Infrastructure.ExternalService.csproj" />
-  <Project Path="WeatherForecast.Infrastructure.IoC/WeatherForecast.Infrastructure.IoC.csproj" />
+  <Folder Name="/1 - Core/">
+    <Project Path="WeatherForecast.Core.Application/WeatherForecast.Core.Application.csproj" />
+    <Project Path="WeatherForecast.Core.Domain/WeatherForecast.Core.Domain.csproj" />
+  </Folder>
+  <Folder Name="/2 - Infrastructure/">
+    <Project Path="WeatherForecast.Infrastructure.ExternalService/WeatherForecast.Infrastructure.ExternalService.csproj" />
+    <Project Path="WeatherForecast.Infrastructure.IoC/WeatherForecast.Infrastructure.IoC.csproj" />
+  </Folder>
+  <Folder Name="/3 - Presentation/">
+    <Project Path="WeatherForecast.Api/WeatherForecast.Api.csproj" />
+  </Folder>
 </Solution>
