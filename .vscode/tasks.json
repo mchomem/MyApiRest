@@ -7,7 +7,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/MyApiRest.Api/MyApiRest.Api.csproj",
+        "${workspaceFolder}/WeatherForecast.Api/WeatherForecast.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary;ForceNoAlign",
         "/property:DebugType=portable"
@@ -24,7 +24,7 @@
       "type": "process",
       "args": [
         "publish",
-        "${workspaceFolder}/MyApiRest.Api/MyApiRest.Api.csproj",
+        "${workspaceFolder}/WeatherForecast.Api/WeatherForecast.Api.csproj",
         "/property:GenerateFullPaths=true",
         "/consoleloggerparameters:NoSummary;ForceNoAlign"
       ],
@@ -38,7 +38,7 @@
         "watch",
         "run",
         "--project",
-        "${workspaceFolder}/MyApiRest.Api/MyApiRest.Api.csproj"
+        "${workspaceFolder}/WeatherForecast.Api/WeatherForecast.Api.csproj"
       ],
       "problemMatcher": "$msCompile"
     }

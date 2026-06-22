@@ -2,13 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "C#: MyApiRest.Api",
+      "name": "C#: WeatherForecast.Api",
       "type": "coreclr",
       "request": "launch",
       "preLaunchTask": "build",
-      "program": "${workspaceFolder}/MyApiRest.Api/bin/Debug/net10.0/MyApiRest.Api.dll",
+      "program": "${workspaceFolder}/WeatherForecast.Api/bin/Debug/net10.0/WeatherForecast.Api.dll",
       "args": [],
-      "cwd": "${workspaceFolder}/MyApiRest.Api",
+      "cwd": "${workspaceFolder}/WeatherForecast.Api",
       "stopAtEntry": false,
       "console": "integratedTerminal",
       "env": {
