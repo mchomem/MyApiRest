@@ -21,8 +21,8 @@ public class OpenMeteoApiClient : IOpenMeteoApiClient
         if (!string.IsNullOrEmpty(state))
         {
             response?.Results = response.Results?
-                .Where(r => r.Admin2 == cityName
-                       && r.Admin1 == state)
+                .Where(r => r.Admin2.Equals(cityName, StringComparison.OrdinalIgnoreCase)
+                       && r.Admin1.Equals(state, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
