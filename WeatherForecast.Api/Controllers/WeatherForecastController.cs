@@ -4,6 +4,7 @@ namespace WeatherForecast.Api.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+    // TODO: criar regras de temperaturas para os sumários.
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -37,6 +38,7 @@ public class WeatherForecastController : ControllerBase
     {
         var result = await _weatherService.GetCityCoordinatesAsync(cityName, state);
         var response = new ApiResponse<Core.Application.Dtos.OpenMeteo.Geocoding.Root>(result);
+        _logger.LogInformation("City coordinates retrieved successfully for {CityName}, {State}", cityName.ToUpper(), state.ToUpper());
         return Ok(response);
     }
 
@@ -45,6 +47,7 @@ public class WeatherForecastController : ControllerBase
     {
         var result = await _weatherService.GetWeatherAsync(coordenates);
         var response = new ApiResponse<Core.Application.Dtos.OpenMeteo.Root>(result);
+        _logger.LogInformation("Weather data retrieved successfully for coordinates: {Latitude}, {Longitude}", coordenates.Latitude, coordenates.Longitude);
         return Ok(response);
     }
 }
