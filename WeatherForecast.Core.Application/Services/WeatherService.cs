@@ -11,9 +11,9 @@ public class WeatherService : IWeatherServices
         _validatorCoordinates = validatorCoordinates;
     }
 
-    public async Task<Dtos.OpenMeteo.Geocoding.Root> GetCityCoordinatesAsync(string cityName, string state)
+    public async Task<Dtos.OpenMeteo.Geocoding.Root> GetCityCoordinatesAsync(CityRequestDto cityRequest)
     {
-        var cityCoordinates = await _openMeteoApiClient.GetCityCoordinatesAsync(cityName, state);
+        var cityCoordinates = await _openMeteoApiClient.GetCityCoordinatesAsync(cityRequest);
         return cityCoordinates;
     }
 

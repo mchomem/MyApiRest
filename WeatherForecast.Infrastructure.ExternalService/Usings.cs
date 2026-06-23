@@ -4,6 +4,7 @@ global using Mapster;
 global using MapsterMapper;
 global using Microsoft.Extensions.Configuration;
 global using WeatherForecast.Core.Application.Interfaces;
+global using AppCityDto = WeatherForecast.Core.Application.Dtos.City;
 global using AppCoordinatesDto = WeatherForecast.Core.Application.Dtos.Coordinates;
 global using AppOpenMeteoDto = WeatherForecast.Core.Application.Dtos.OpenMeteo;
 global using AppOpenMeteoGeocodingDto = WeatherForecast.Core.Application.Dtos.OpenMeteo.Geocoding;

@@ -18,7 +18,7 @@ public class Result
 
     public required long Admin1Id { get; init; }
 
-    public required long Admin2Id { get; init; }
+    public long Admin2Id { get; set; }
 
     public required string Timezone { get; init; }
 
@@ -30,5 +30,5 @@ public class Result
 
     public required string Admin1 { get; init; }
 
-    public required string Admin2 { get; init; }
+    public string? Admin2 { get; set; }
 }

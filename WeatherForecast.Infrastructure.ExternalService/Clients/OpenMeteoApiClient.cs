@@ -5,24 +5,27 @@ public class OpenMeteoApiClient : IOpenMeteoApiClient
     private readonly HttpClient _httpClient;
     private readonly IConfiguration _configuration;
     private readonly IMapper _mapper;
+    private readonly string _urlBase;
+    private readonly string _urlBaseGeocoding;
 
     public OpenMeteoApiClient(HttpClient httpClient, IConfiguration configuration, IMapper mapper)
     {
         _httpClient = httpClient;
         _configuration = configuration;
         _mapper = mapper;
+        _urlBase = _configuration.GetSection("ExternalServices:OpenMeteoApi:UrlBase").Value!;
+        _urlBaseGeocoding = _configuration.GetSection("ExternalServices:OpenMeteoApi:UrlBaseGeocoding").Value!;
     }
 
-    public async Task<AppOpenMeteoGeocodingDto.Root> GetCityCoordinatesAsync(string cityName, string state)
+    public async Task<AppOpenMeteoGeocodingDto.Root> GetCityCoordinatesAsync(AppCityDto.CityRequestDto cityRequest)
     {
-        var UrlBaseGeocoding = _configuration.GetSection("ExternalServices:OpenMeteoApi:UrlBaseGeocoding").Value!;
-        var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoGeocodingDto.Root>($"{UrlBaseGeocoding}/search?name={cityName}");
+        var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoGeocodingDto.Root>($"{_urlBaseGeocoding}/search?name={cityRequest.Name}");
 
-        if (!string.IsNullOrEmpty(state))
+        if (!string.IsNullOrEmpty(cityRequest.State))
         {
             response?.Results = response.Results?
-                .Where(r => r.Admin2.Equals(cityName, StringComparison.OrdinalIgnoreCase)
-                       && r.Admin1.Equals(state, StringComparison.OrdinalIgnoreCase))
+                .Where(r => r.Admin2 != null && r.Admin2.Equals(cityRequest.Name, StringComparison.OrdinalIgnoreCase)
+                       && r.Admin1.Equals(cityRequest.State, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
 
@@ -32,8 +35,7 @@ public class OpenMeteoApiClient : IOpenMeteoApiClient
 
     public async Task<AppOpenMeteoDto.Root> GetWeatherAsync(AppCoordinatesDto.CoordinatesRequestDto coordinates)
     {
-        var urlBase = _configuration.GetSection("ExternalServices:OpenMeteoApi:UrlBase").Value!;
-        var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoDto.Root>($"{urlBase}/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&hourly=temperature_2m");
+        var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoDto.Root>($"{_urlBase}/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&hourly=temperature_2m");
         var rootDto = _mapper.Map<AppOpenMeteoDto.Root>(response!);
         return rootDto;
     }

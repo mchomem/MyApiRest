@@ -27,7 +27,7 @@ public class Result
     public required long Admin1Id { get; init; }
 
     [JsonPropertyName("admin2_id")]
-    public required long Admin2Id { get; init; }
+    public long Admin2Id { get; set; }
 
     [JsonPropertyName("timezone")]
     public required string Timezone { get; init; }
@@ -45,5 +45,5 @@ public class Result
     public required string Admin1 { get; init; }
 
     [JsonPropertyName("admin2")]
-    public required string Admin2 { get; init; }
+    public string? Admin2 { get; set; }
 }
