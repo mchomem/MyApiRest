@@ -1,4 +1,4 @@
-namespace WeatherForecast.Core.Application.Coordinates.Dtos;
+namespace WeatherForecast.Core.Application.Dtos.Coordinates;
 
 public class CoordinatesRequestDto
 {

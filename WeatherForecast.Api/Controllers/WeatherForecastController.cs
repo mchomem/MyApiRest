@@ -32,11 +32,19 @@ public class WeatherForecastController : ControllerBase
         .ToArray();
     }
 
+    [HttpGet("city-coordinates")]
+    public async Task<IActionResult> GetCityCoordinatesAsync([FromQuery] string cityName, [FromQuery] string state)
+    {
+        var result = await _weatherService.GetCityCoordinatesAsync(cityName, state);
+        var response = new ApiResponse<Core.Application.Dtos.OpenMeteo.Geocoding.Root>(result);
+        return Ok(response);
+    }
+
     [HttpPost]
     public async Task<IActionResult> PostAsync([FromBody] CoordinatesRequestDto coordenates)
     {
         var result = await _weatherService.GetWeatherAsync(coordenates);
-        var response = new ApiResponse<Root>(result);
+        var response = new ApiResponse<Core.Application.Dtos.OpenMeteo.Root>(result);
         return Ok(response);
     }
 }

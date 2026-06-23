@@ -11,12 +11,16 @@ public class WeatherService : IWeatherServices
         _validatorCoordinates = validatorCoordinates;
     }
 
-    public async Task<Root> GetWeatherAsync(CoordinatesRequestDto coordenates)
+    public async Task<Dtos.OpenMeteo.Geocoding.Root> GetCityCoordinatesAsync(string cityName, string state)
+    {
+        var cityCoordinates = await _openMeteoApiClient.GetCityCoordinatesAsync(cityName, state);
+        return cityCoordinates;
+    }
+
+    public async Task<Dtos.OpenMeteo.Root> GetWeatherAsync(CoordinatesRequestDto coordenates)
     {
         _validatorCoordinates.ValidateAndThrow(coordenates);
-
         var weatherData = await _openMeteoApiClient.GetWeatherAsync(coordenates);
-
         return weatherData;
     }
 }
