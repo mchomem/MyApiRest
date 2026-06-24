@@ -35,7 +35,9 @@ public class OpenMeteoApiClient : IOpenMeteoApiClient
 
     public async Task<AppOpenMeteoDto.Root> GetWeatherAsync(AppCoordinatesDto.CoordinatesRequestDto coordinates)
     {
-        var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoDto.Root>($"{_urlBase}/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&hourly=temperature_2m");
+        var frequency = coordinates.Frequency.ToString().ToLower();
+        var url = $"{_urlBase}/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&{frequency}=temperature_2m";
+        var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoDto.Root>(url);
         var rootDto = _mapper.Map<AppOpenMeteoDto.Root>(response!);
         return rootDto;
     }

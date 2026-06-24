@@ -16,7 +16,11 @@ public class Root
 
     public required double Elevation { get; init; }
 
-    public required HourlyUnits HourlyUnits { get; init; }
+    public HourlyUnits? HourlyUnits { get; set; }
 
-    public required Hourly Hourly { get; init; }
+    public Hourly? Hourly { get; set; }
+
+    public CurrentUnits? CurrentUnits { get; set; }
+
+    public Current? Current { get; set; }
 }

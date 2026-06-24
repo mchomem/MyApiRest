@@ -6,7 +6,7 @@ global using WeatherForecast.Api.Middlewares;
 global using WeatherForecast.Api.Responses;
 global using WeatherForecast.Core.Application.Dtos.City;
 global using WeatherForecast.Core.Application.Dtos.Coordinates;
+global using WeatherForecast.Core.Application.Dtos.Weather;
 global using WeatherForecast.Core.Application.Interfaces;
 global using WeatherForecast.Core.Domain.Exceptions;
-global using WeatherForecast.Core.Domain.Models;
 global using WeatherForecast.Infrastructure.IoC;

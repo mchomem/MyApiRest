@@ -24,8 +24,14 @@ public class Root
     public required double Elevation { get; init; }
 
     [JsonPropertyName("hourly_units")]
-    public required HourlyUnits HourlyUnits { get; init; }
+    public HourlyUnits? HourlyUnits { get; set; }
 
     [JsonPropertyName("hourly")]
-    public required Hourly Hourly { get; init; }
+    public Hourly? Hourly { get; set; }
+
+    [JsonPropertyName("current_units")]
+    public CurrentUnits? CurrentUnits { get; set; }
+
+    [JsonPropertyName("current")]
+    public Current? Current { get; set; }
 }

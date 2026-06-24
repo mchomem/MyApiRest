@@ -4,4 +4,5 @@ public interface IWeatherServices
 {
     public Task<Dtos.OpenMeteo.Geocoding.Root> GetCityCoordinatesAsync(CityRequestDto cityRequest);
     public Task<Dtos.OpenMeteo.Root> GetWeatherAsync(CoordinatesRequestDto coordenates);
+    public Task<Dtos.Weather.WeatherResponseDto> GetCityWeatherAsync(CityRequestDto cityRequest);
 }
