@@ -1,15 +1,32 @@
 @baseUrl = http://localhost:5001
 
-GET {{baseUrl}}/weatherforecast/
-Accept: application/json
+POST {{baseUrl}}/weatherforecast/city-coordinates
+User-Agent: WeatherForecast/1.0
+Content-Type: application/json
+
+{
+  "name": "torres",
+  "state": "rio grande do sul"
+}
 ###
 
 POST {{baseUrl}}/weatherforecast
-User-Agent: MyApiRest
+User-Agent: WeatherForecast/1.0
 Content-Type: application/json
 
 {
     "latitude": 10,
-    "longitude": 20
+    "longitude": 20,
+    "frequency": 1
+}
+###
+
+POST {{baseUrl}}/weatherforecast/city-weather
+User-Agent: WeatherForecast/1.0
+Content-Type: application/json
+
+{
+  "name": "torres",
+  "state": "rio grande do sul"
 }
 ###
