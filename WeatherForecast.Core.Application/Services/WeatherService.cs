@@ -28,6 +28,9 @@ public class WeatherService : IWeatherServices
     {
         var cityCoordinnates = await GetCityCoordinatesAsync(cityRequest);
 
+        if (cityCoordinnates.Results is null || !cityCoordinnates.Results.Any())
+            throw new CityCoordinatesNotFoundException();
+
         var coordinatesRequest = new CoordinatesRequestDto
         {
             Latitude = cityCoordinnates.Results.FirstOrDefault()?.Latitude ?? 0,
@@ -39,6 +42,10 @@ public class WeatherService : IWeatherServices
         coordinatesRequest.Frequency = Frequency.Current;
 
         var weatherData = await GetWeatherAsync(coordinatesRequest);
+
+        if (weatherData.Current is null || weatherData.Current.Temperature2m is null)
+            throw new WeatherNotFoundException();
+
         var weatherResponse = new Dtos.Weather.WeatherResponseDto
         {
             CityName = cityRequest.Name,
