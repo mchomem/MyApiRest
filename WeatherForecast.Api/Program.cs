@@ -1,7 +1,6 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddInfrastructureApi(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddHttpClient();
@@ -10,12 +9,7 @@ builder.Services.AddHttpClient();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Configure logging to show timestamps and use single line formatc
-builder.Logging.AddSimpleConsole(options =>
-{
-    options.TimestampFormat = "[yyyy-MM-dd HH:mm:ss] ";
-    options.SingleLine = true;
-});
+builder.Host.AddInfrastructureSerilog();
 
 var app = builder.Build();
 

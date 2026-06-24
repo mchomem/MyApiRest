@@ -37,4 +37,24 @@ public static class DependenceInjectionApi
 
         #endregion
     }
+
+    public static IHostBuilder AddInfrastructureSerilog(this IHostBuilder host)
+    {
+        Log.Logger = new LoggerConfiguration()
+            .WriteTo.Console()
+            .WriteTo.File(
+                path: "Logs/WeatherForecast-.log",
+                rollingInterval: RollingInterval.Day,
+                retainedFileCountLimit: 31,
+                outputTemplate: "{Timestamp} [{Level}] {Message}{NewLine}{Exception}",
+                shared: true)
+            .Enrich.FromLogContext()
+            .Enrich.WithMachineName()
+            .Enrich.WithEnvironmentName()
+            .CreateLogger();
+
+        host.UseSerilog();
+
+        return host;
+    }
 }
