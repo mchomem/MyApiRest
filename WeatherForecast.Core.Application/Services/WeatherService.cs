@@ -4,11 +4,13 @@ public class WeatherService : IWeatherServices
 {
     private readonly IOpenMeteoApiClient _openMeteoApiClient;
     private readonly IValidator<CoordinatesRequestDto> _validatorCoordinates;
+    private readonly IMapper _mapper;
 
-    public WeatherService(IOpenMeteoApiClient openMeteoApiClient, IValidator<CoordinatesRequestDto> validatorCoordinates)
+    public WeatherService(IOpenMeteoApiClient openMeteoApiClient, IValidator<CoordinatesRequestDto> validatorCoordinates, IMapper mapper)
     {
         _openMeteoApiClient = openMeteoApiClient;
         _validatorCoordinates = validatorCoordinates;
+        _mapper = mapper;
     }
 
     public async Task<Dtos.OpenMeteo.Geocoding.Root> GetCityCoordinatesAsync(CityRequestDto cityRequest)
@@ -46,42 +48,20 @@ public class WeatherService : IWeatherServices
         if (weatherData.Current is null || weatherData.Current.Temperature2m is null)
             throw new WeatherNotFoundException();
 
-        var weatherResponse = new Dtos.Weather.WeatherResponseDto
-        {
-            CityName = cityRequest.Name,
-            State = cityRequest.State,
-            Country = cityCoordinnates.Results.FirstOrDefault()?.Country ?? string.Empty,
-            Latitude = coordinatesRequest.Latitude,
-            Longitude = coordinatesRequest.Longitude,
-            Timezone = weatherData.Timezone,
-            TemperatureCelsius = weatherData.Current?.Temperature2m ?? 0,
-            TemperatureFahrenheit = weatherData.Current != null ? (weatherData.Current.Temperature2m.Value * 9 / 5) + 32 : 0,
-            Summary = GetSummary(weatherData.Current?.Temperature2m ?? 0)
-        };
+        var weather = new Weather(
+            cityRequest.Name,
+            cityRequest.State,
+            cityCoordinnates.Results.FirstOrDefault()?.Country ?? string.Empty,
+            coordinatesRequest.Latitude,
+            coordinatesRequest.Longitude,
+            weatherData.Timezone,
+            weatherData.Current.Temperature2m.Value,
+            weatherData.Current != null ? weatherData.Current.Temperature2m.Value : 0);
 
+        weather.GetSummary();
+        weather.ConvertToFahrenheit();
+
+        var weatherResponse = _mapper.Map<Dtos.Weather.WeatherResponseDto>(weather);
         return weatherResponse;
-    }
-
-    private static string GetSummary(double temperatureC)
-    {
-        switch (temperatureC)
-        {
-            case < 0:
-                return "Congelante";
-            case >= 0 and <= 10:
-                return "Muito Frio";
-            case > 10 and <= 18:
-                return "Frio";
-            case > 18 and <= 24:
-                return "Agradável";
-            case > 24 and <= 30:
-                return "Quente";
-            case > 30 and <= 40:
-                return "Muito Quente";
-            case > 40:
-                return "Perigoso";
-            default:
-                return "Congelante";
-        }
     }
 }

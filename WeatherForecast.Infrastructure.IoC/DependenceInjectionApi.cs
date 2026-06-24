@@ -30,10 +30,10 @@ public static class DependenceInjectionApi
         #region Mapster
 
         var config = new TypeAdapterConfig();
-        ProfileMapping.RegisterMappings(config);
+        WeatherForecast.Infrastructure.ExternalService.ProfileMappings.ProfileMapping.RegisterMappings(config);
+        WeatherForecast.Core.Application.ProfileMappings.ProfileMapping.RegisterMappings(config);
         services.AddSingleton(config);
         services.AddScoped<IMapper, ServiceMapper>();
-        services.AddMapster();
 
         #endregion
     }

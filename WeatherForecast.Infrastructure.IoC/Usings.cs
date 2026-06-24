@@ -10,4 +10,3 @@ global using WeatherForecast.Core.Application.Interfaces;
 global using WeatherForecast.Core.Application.Services;
 global using WeatherForecast.Core.Application.Validators;
 global using WeatherForecast.Infrastructure.ExternalService.Clients;
-global using WeatherForecast.Infrastructure.ExternalService.ProfileMappings;
