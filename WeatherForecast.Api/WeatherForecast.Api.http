@@ -21,6 +21,17 @@ Content-Type: application/json
 }
 ###
 
+POST {{baseUrl}}/weatherforecast
+User-Agent: WeatherForecast/1.0
+Content-Type: application/json
+
+{
+    "latitude": 10,
+    "longitude": 20,
+    "frequency": 2
+}
+###
+
 POST {{baseUrl}}/weatherforecast/city-weather
 User-Agent: WeatherForecast/1.0
 Content-Type: application/json
