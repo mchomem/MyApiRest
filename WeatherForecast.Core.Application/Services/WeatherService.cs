@@ -55,8 +55,7 @@ public class WeatherService : IWeatherServices
             coordinatesRequest.Latitude,
             coordinatesRequest.Longitude,
             weatherData.Timezone,
-            weatherData.Current.Temperature2m.Value,
-            weatherData.Current != null ? weatherData.Current.Temperature2m.Value : 0);
+            weatherData.Current.Temperature2m.Value);
 
         weather.GetSummary();
         weather.ConvertToFahrenheit();

@@ -2,7 +2,7 @@ namespace WeatherForecast.Core.Domain.Entities;
 
 public class Weather
 {
-    public Weather(string cityName, string state, string country, double latitude, double longitude, string timezone, double temperatureCelsius, double temperatureFahrenheit)
+    public Weather(string cityName, string state, string country, double latitude, double longitude, string timezone, double temperatureCelsius)
     {
         CityName = cityName;
         State = state;
@@ -11,7 +11,7 @@ public class Weather
         Longitude = longitude;
         Timezone = timezone;
         TemperatureCelsius = temperatureCelsius;
-        TemperatureFahrenheit = temperatureFahrenheit;
+        TemperatureFahrenheit = 0;
         Summary = string.Empty;
     }
 
