@@ -32,7 +32,7 @@ public class WeatherService : IWeatherServices
         return weatherData;
     }
 
-    public async Task<Dtos.Weather.WeatherResponseDto> GetCityWeatherAsync(CityRequestDto cityRequest)
+    public async Task<WeatherResponseDto> GetCityWeatherAsync(CityRequestDto cityRequest)
     {
         await _validatorCity.ValidateAndThrowAsync(cityRequest);
         var cityCoordinnates = await GetCityCoordinatesAsync(cityRequest);
@@ -43,15 +43,10 @@ public class WeatherService : IWeatherServices
         var coordinatesRequest = new CoordinatesRequestDto
         {
             Latitude = cityCoordinnates.Results.FirstOrDefault()?.Latitude ?? 0,
-            Longitude = cityCoordinnates.Results.FirstOrDefault()?.Longitude ?? 0
+            Longitude = cityCoordinnates.Results.FirstOrDefault()?.Longitude ?? 0,
+            // Define a frequência da previsão do tempo como "Current" para obter a previsão atual da cidade solicitada.
+            Frequency = Frequency.Current
         };
-
-        // A API do Open Meteo não aceita coordenadas em formato decimal, por isso os valores são truncados para inteiros antes de fazer a requisição.
-        coordinatesRequest.Latitude = Math.Truncate(coordinatesRequest.Latitude);
-        coordinatesRequest.Longitude = Math.Truncate(coordinatesRequest.Longitude);
-
-        // Define a frequência da previsão do tempo como "Current" para obter a previsão atual da cidade solicitada.
-        coordinatesRequest.Frequency = Frequency.Current;
 
         var weatherData = await GetWeatherAsync(coordinatesRequest);
 
@@ -70,7 +65,7 @@ public class WeatherService : IWeatherServices
         weather.GetSummary();
         weather.ConvertToFahrenheit();
 
-        var weatherResponse = _mapper.Map<Dtos.Weather.WeatherResponseDto>(weather);
+        var weatherResponse = _mapper.Map<WeatherResponseDto>(weather);
         return weatherResponse;
     }
 }

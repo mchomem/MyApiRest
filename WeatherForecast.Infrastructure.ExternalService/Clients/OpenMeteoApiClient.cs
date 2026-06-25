@@ -35,6 +35,10 @@ public class OpenMeteoApiClient : IOpenMeteoApiClient
 
     public async Task<AppOpenMeteoDto.Root> GetWeatherAsync(AppCoordinatesDto.CoordinatesRequestDto coordinates)
     {
+        // A API do Open Meteo não aceita coordenadas em formato decimal, por isso os valores são truncados para inteiros antes de fazer a requisição.
+        coordinates.Latitude = Math.Truncate(coordinates.Latitude);
+        coordinates.Longitude = Math.Truncate(coordinates.Longitude);
+
         var frequency = coordinates.Frequency.ToString().ToLower();
         var url = $"{_urlBase}/forecast?latitude={coordinates.Latitude}&longitude={coordinates.Longitude}&{frequency}=temperature_2m";
         var response = await _httpClient.GetFromJsonAsync<InfraOpenMeteoDto.Root>(url);
