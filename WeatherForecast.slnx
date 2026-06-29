@@ -17,5 +17,6 @@
   </Folder>
   <Folder Name="/3 - Presentation/">
     <Project Path="WeatherForecast.Api/WeatherForecast.Api.csproj" />
+    <Project Path="WeatherForecast.Web/WeatherForecast.Web.csproj" />
   </Folder>
 </Solution>

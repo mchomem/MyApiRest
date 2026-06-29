@@ -27,9 +27,35 @@
       }
     },
     {
+      "name": "C#: WeatherForecast.Web",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build",
+      "program": "${workspaceFolder}/WeatherForecast.Web/bin/Debug/net10.0/WeatherForecast.Web.dll",
+      "cwd": "${workspaceFolder}/WeatherForecast.Web",
+      "console": "integratedTerminal",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "serverReadyAction": {
+        "action": "openExternally",
+        "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
+        "uriFormat": "%s"
+      }
+    },
+    {
       "name": ".NET Core Attach",
       "type": "coreclr",
       "request": "attach"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "WeatherForecast Full Stack",
+      "configurations": [
+        "C#: WeatherForecast.Api",
+        "C#: WeatherForecast.Web"
+      ]
     }
   ]
 }
