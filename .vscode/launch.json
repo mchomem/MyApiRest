@@ -5,7 +5,7 @@
       "name": "C#: WeatherForecast.Api",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-api",
       "program": "${workspaceFolder}/WeatherForecast.Api/bin/Debug/net10.0/WeatherForecast.Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/WeatherForecast.Api",
@@ -15,7 +15,8 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "serverReadyAction": {
-        "action": "debugWithChrome",
+        "action": "startDebugging",
+        "name": "Chrome: WeatherForecast.Api",
         "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
         "uriFormat": "%s/swagger"
       },
@@ -30,7 +31,7 @@
       "name": "C#: WeatherForecast.Web",
       "type": "coreclr",
       "request": "launch",
-      "preLaunchTask": "build",
+      "preLaunchTask": "build-web",
       "program": "${workspaceFolder}/WeatherForecast.Web/bin/Debug/net10.0/WeatherForecast.Web.dll",
       "cwd": "${workspaceFolder}/WeatherForecast.Web",
       "console": "integratedTerminal",
@@ -38,10 +39,33 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "serverReadyAction": {
-        "action": "openExternally",
+        "action": "startDebugging",
+        "name": "Chrome: WeatherForecast.Web",
         "pattern": "\\bNow listening on:\\s+(https?://\\S+)",
         "uriFormat": "%s"
       }
+    },
+    {
+      "name": "Chrome: WeatherForecast.Api",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "https://localhost:7182/swagger",
+      "userDataDir": "${env:TEMP}\\WeatherForecast.Chrome.Api",
+      "runtimeArgs": [
+        "--new-window",
+        "--incognito"
+      ]
+    },
+    {
+      "name": "Chrome: WeatherForecast.Web",
+      "type": "pwa-chrome",
+      "request": "launch",
+      "url": "https://localhost:7005",
+      "userDataDir": "${env:TEMP}\\WeatherForecast.Chrome.Web",
+      "runtimeArgs": [
+        "--new-window",
+        "--incognito"
+      ]
     },
     {
       "name": ".NET Core Attach",
