@@ -41,10 +41,8 @@ public static class DependenceInjectionApi
         return services;
     }
 
-    public static IServiceCollection AddInfrastructureSwagger(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructureSwagger(this IServiceCollection services, IConfiguration configuration)
     {
-        var contactSite = "https://www.linkedin.com/in/misael-da-costa-homem-8b07a158/";
-
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(options =>
         {
@@ -58,7 +56,7 @@ public static class DependenceInjectionApi
                     Contact = new OpenApiContact
                     {
                         Name = "Misael da Costa Homem",
-                        Url = new Uri(contactSite)
+                        Url = new Uri(configuration.GetSection("AuthorProfile").Value!),
                     },
                 });
 
